@@ -15,5 +15,6 @@ $router->get('/clientes', [ClienteController::class, 'renderizarPagina']);
 $router->post('/clientes/guardarAPI', [ClienteController::class, 'guardarAPI']);
 $router->get('/clientes/buscarAPI', [ClienteController::class, 'buscarAPI']);
 $router->post('/clientes/modificarAPI', [ClienteController::class, 'modificarAPI']);
+$router->post('/clientes/eliminarAPI', [ClienteController::class, 'eliminarAPI']);
 
 $router->comprobarRutas();

@@ -217,9 +217,9 @@ const llenarFormulario = (e) => {
   document.getElementById("cliente_id").value = datos.cliente_id;
   document.getElementById("cliente_nombres").value = datos.cliente_nombres;
   document.getElementById("cliente_apellidos").value = datos.cliente_apellidos;
-   document.getElementById("cliente_nit").value = datos.cliente_nit;
+  document.getElementById("cliente_nit").value = datos.cliente_nit;
   document.getElementById("cliente_telefono").value = datos.cliente_telefono;
- 
+
   document.getElementById("cliente_correo").value = datos.cliente_correo;
 
   BtnGuardar.classList.add("d-none");
@@ -236,16 +236,11 @@ const limpiarFormulario = () => {
   BtnModificar.classList.add("d-none");
 };
 
-
-
-
-
-
 const modificarAPI = async (e) => {
   e.preventDefault();
   BtnModificar.disabled = true;
 
-  if (!validarFormulario(FormClientes, [''])) {
+  if (!validarFormulario(FormClientes, [""])) {
     Swal.fire({
       position: "center",
       icon: "success",
@@ -259,10 +254,10 @@ const modificarAPI = async (e) => {
   }
 
   const body = new FormData(FormClientes);
-  const url = '/proyecto_tarea/clientes/modificarAPI';
+  const url = "/proyecto_tarea/clientes/modificarAPI";
   const config = {
     method: "POST",
-    body
+    body,
   };
   try {
     const respuesta = await fetch(url, config);
@@ -291,7 +286,6 @@ const modificarAPI = async (e) => {
         showConfirmButton: false,
         timer: 20000,
       });
-      
     }
   } catch (error) {
     console.log(error);
@@ -299,8 +293,63 @@ const modificarAPI = async (e) => {
   BtnModificar.disabled = false;
 };
 
-buscarAPI();
+const eliminarAPI = async (e) => {
+    const idCliente = e.currentTarget.dataset.id
 
+    const alertaConfirmaEliminar = await Swal.fire({
+        position: "center",
+        icon: "question",
+        title: "¿Desea eliminar este libro?",
+        text: 'Esta acción no se puede deshacer',
+        showConfirmButton: true,
+        confirmButtonText: 'Sí, Eliminar',
+        confirmButtonColor: '#dc3545',
+        cancelButtonText: 'No, Cancelar',
+        showCancelButton: true
+    });
+
+   if (!alertaConfirmaEliminar.isConfirmed) return;
+
+    // Preparamos el body para POST
+    const body = new URLSearchParams();
+    body.append('cliente_id', idCliente);
+
+    try {
+        const respuesta = await fetch('/proyecto_tarea/clientes/eliminarAPI', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body
+        });
+
+        const datos = await respuesta.json();
+        const { codigo, mensaje } = datos;
+
+        if (codigo === 1) {
+            await Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Éxito",
+                text: mensaje
+            });
+            buscarAPI();
+        } else {
+            await Swal.fire({
+                position: "center",
+                icon: "info",
+                title: "Error",
+                text: mensaje,
+                showConfirmButton: false,
+                timer: 1000
+            });
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+buscarAPI();
+Datosdelatabla.on("click", ".eliminar", eliminarAPI);
 Datosdelatabla.on("click", ".modificar", llenarFormulario);
 validarTelefono.addEventListener("change", validacionTelefono);
 validarNit.addEventListener("change", validacionNIT);
