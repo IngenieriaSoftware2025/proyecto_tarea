@@ -11,7 +11,7 @@ $router->setBaseURL('/' . $_ENV['APP_NAME']);
 
 $router->get('/', [AppController::class,'index']);
 
-
-$router->post('/clientes/guardarCliente', [ClienteController::class, 'guardarCliente']);
+$router->get('/clientes', [ClienteController::class, 'renderizarPagina']);
+$router->post('/clientes/guardarAPI', [ClienteController::class, 'guardarAPI']);
 
 $router->comprobarRutas();

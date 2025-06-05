@@ -1,4 +1,4 @@
-create database app03_montes
+create database proyecto_perez
 
 CREATE TABLE clientes (
     cliente_id SERIAL PRIMARY KEY,
