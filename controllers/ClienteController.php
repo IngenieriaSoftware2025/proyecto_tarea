@@ -66,15 +66,16 @@ class ClienteController extends ActiveRecord
         try {
             $_POST['cliente_nombres'] = ucwords(strtolower(trim(htmlspecialchars($_POST['cliente_nombres']))));
             $_POST['cliente_apellidos'] = ucwords(strtolower(trim(htmlspecialchars($_POST['cliente_apellidos']))));
+             $_POST['cliente_nit'] = htmlspecialchars($_POST['cliente_nit'] ?? '');
             $_POST['cliente_telefono'] = filter_var($_POST['cliente_telefono'], FILTER_SANITIZE_NUMBER_INT);
-            $_POST['cliente_nit'] = htmlspecialchars($_POST['cliente_nit'] ?? '');
+           
             $_POST['cliente_correo'] = filter_var($_POST['cliente_correo'], FILTER_SANITIZE_EMAIL);
 
             $cliente = new Clientes([
                 'cliente_nombres' => $_POST['cliente_nombres'],
                 'cliente_apellidos' => $_POST['cliente_apellidos'],
-                'cliente_telefono' => $_POST['cliente_telefono'],
                 'cliente_nit' => $_POST['cliente_nit'],
+                'cliente_telefono' => $_POST['cliente_telefono'],
                 'cliente_correo' => $_POST['cliente_correo'],
                 'cliente_situacion' => 1
             ]);
@@ -196,10 +197,10 @@ class ClienteController extends ActiveRecord
                 [
                      'cliente_nombres' => $_POST['cliente_nombres'],
                 'cliente_apellidos' => $_POST['cliente_apellidos'],
-                'cliente_telefono' => $_POST['cliente_telefono'],
                 'cliente_nit' => $_POST['cliente_nit'],
-                'cliente_correo' => $_POST['cliente_correo']
-                // 'cliente_situacion' => 1
+                'cliente_telefono' => $_POST['cliente_telefono'],
+                'cliente_correo' => $_POST['cliente_correo'],
+                'cliente_situacion' => 1
                 ]
 
                 );

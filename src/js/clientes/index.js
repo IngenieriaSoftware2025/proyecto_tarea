@@ -214,17 +214,18 @@ const buscarAPI = async () => {
 
 const llenarFormulario = (e) => {
   const datos = e.currentTarget.dataset;
-  document.getElementById("cliente_id").value = datos.id;
+  document.getElementById("cliente_id").value = datos.cliente_id;
   document.getElementById("cliente_nombres").value = datos.cliente_nombres;
   document.getElementById("cliente_apellidos").value = datos.cliente_apellidos;
-  document.getElementById("cliente_telefono").value = datos.cliente_nit;
-  document.getElementById("cliente_nit").value = datos.cliente_telefono;
+   document.getElementById("cliente_nit").value = datos.cliente_nit;
+  document.getElementById("cliente_telefono").value = datos.cliente_telefono;
+ 
   document.getElementById("cliente_correo").value = datos.cliente_correo;
 
   BtnGuardar.classList.add("d-none");
   BtnModificar.classList.remove("d-none");
 
-  Window.scrollto({
+  window.scrollTo({
     top: 0,
   });
 };
@@ -244,7 +245,7 @@ const modificarAPI = async (e) => {
   e.preventDefault();
   BtnModificar.disabled = true;
 
-  if (!validarFormulario(FormClientes, [""])) {
+  if (!validarFormulario(FormClientes, [''])) {
     Swal.fire({
       position: "center",
       icon: "success",
@@ -258,15 +259,16 @@ const modificarAPI = async (e) => {
   }
 
   const body = new FormData(FormClientes);
-  const url = "/proyecto_tarea/clientes/modificarAPI";
+  const url = '/proyecto_tarea/clientes/modificarAPI';
   const config = {
     method: "POST",
-    body,
+    body
   };
   try {
     const respuesta = await fetch(url, config);
     const datos = await respuesta.json();
-    const { codigo, mensaje } = datos;
+
+    const { codigo, mensaje, detalle } = datos;
 
     if (codigo === 1) {
       Swal.fire({
@@ -285,9 +287,9 @@ const modificarAPI = async (e) => {
         position: "center",
         icon: "info",
         title: "error",
-        text: mensaje,
+        text: detalle,
         showConfirmButton: false,
-        timer: 800,
+        timer: 20000,
       });
       
     }
