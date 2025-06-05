@@ -247,4 +247,36 @@ class ActiveRecord {
             }
         }
     }
+
+
+
+
+
+
+    // public static function whereConArray($criterios = [])
+    // {
+    //     // Verificar si hay criterios definidos
+    //     if (empty($criterios)) {
+    //         throw new Exception("Debe proporcionar al menos un criterio para la consulta.");
+    //     }
+
+    //     // Construir las condiciones del WHERE
+    //     $condiciones = [];
+    //     foreach ($criterios as $criterio) {
+    //         $columna = $criterio['columna'];
+    //         $valor = $criterio['valor'];
+    //         $condicion = $criterio['condicion'] ?? '='; // Si no se define, se asume '='
+    //         $condiciones[] = "${columna} ${condicion} " . self::$db->quote($valor);
+    //     }
+
+    //     // Unir las condiciones con AND
+    //     $whereClause = implode(' AND ', $condiciones);
+
+    //     // Construir la consulta
+    //     $query = "SELECT * FROM " . static::$tabla . " WHERE ${whereClause}";
+    //     // Ejecutar la consulta
+    //     $resultado = self::fetchArray($query);
+
+    //     return $resultado;
+    // }
 }
